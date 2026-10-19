@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Contact Form</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/Favicon.png">
+    
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+
+    <main class="container">
+        <section class="contact-section">
+            <h2>Get in Touch</h2>
+            <form action="/contact" method="POST" class="contact-form">
+                
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Jane Doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Write your message here..."></textarea>
+                </div>
+
+                <div class="form-group full-width">
+                    <button type="submit" class="btn-submit">Send Message</button>
+                </div>
+
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>
