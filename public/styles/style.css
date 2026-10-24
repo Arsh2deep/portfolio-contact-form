@@ -40,13 +40,13 @@ body {
     gap: 1.25rem;
 }
 
-/* Flexbox for Input Groups */
+/* Flexbox for input groups */
 .form-group {
     display: flex;
     flex-direction: column;
 }
 
-/* Full-width fields (Message & Submit Button) */
+/* Full-width fields for Message & Submit Button */
 .form-group.full-width {
     grid-column: 1 / -1;
 }
