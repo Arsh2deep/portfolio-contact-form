@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Submissions Data Dump</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <main class="container wide">
+        <section class="contact-section">
+            <h2>Admin Dashboard - Submissions Data Dump</h2>
+            
+            <% if (contacts.length === 0) { %>
+                <p style="color: #475569; margin-top: 1rem;">No contact entries submitted yet.</p>
+            <% } else { %>
+                <div class="table-responsive">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Mailing List</th>
+                                <th>Format</th>
+                                <th>LinkedIn</th>
+                                <th>How We Met</th>
+                                <th>Message</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% contacts.forEach((c, index) => { %>
+                                <tr>
+                                    <td><%= index + 1 %></td>
+                                    <td><%= c.firstName %> <%= c.lastName %></td>
+                                    <td><%= c.email %></td>
+                                    <td><%= c.mailingList %></td>
+                                    <td><%= c.emailFormat %></td>
+                                    <td><%= c.linkedin !== 'N/A' ? c.linkedin : 'N/A' %></td>
+                                    <td><%= c.howWeMet %> <%= c.otherMet !== 'N/A' ? `(${c.otherMet})` : '' %></td>
+                                    <td><%= c.message %></td>
+                                    <td><%= c.submittedAt %></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
+            
+            <br>
+            <a href="/" class="btn-submit">Go back home</a>
+        </section>
+    </main>
+</body>
+</html>

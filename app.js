@@ -4,6 +4,13 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3002;
 
+// database array to store contact form submissions
+const contacts = [];
+
+//Set EJS as the view engine
+app.set('view engine', 'ejs');
+app.set('views',path.join(__dirname, 'views'));
+
 // Middleware for parsing form data
 app.use(express.urlencoded({ extended: true }));
 
@@ -19,8 +26,9 @@ app.get('/', (req, res) => {
 app.post('/contact',(req,res)=>{
     //Get form fields from client
     const {firstName,lastName, email,mailingList,emailFormat,linkedin,howWeMet,otherMet,message}=req.body;
-    //log the submission to terminal for test
-    console.log('Contact form submission received: ',{
+    
+    //Structre Submission data Object First
+    const newContact = {
         firstName,
         lastName,
         email,
@@ -29,10 +37,25 @@ app.post('/contact',(req,res)=>{
         linkedin,
         howWeMet,
         otherMet: howWeMet === 'other'? otherMet:'N/A',
-        message
-    });
-    //Send a response back to the client
-    res.send(`<h2>Thank you, ${firstName}! Your message has been sent successfully.</h2><a href= "/">Go back home</a>`);
+        message,
+        submittedAt: new Date().toLocaleString()
+    };
+
+    //store in-memory array backend
+    contacts.push(newContact);
+
+    //log the submission to terminal for testing
+    console.log('Contact form submission received: ', newContact);
+
+    //render Confirmation template
+    res.render('confirmation', { firstName });
+
+});
+
+//Admin Route to display data dump of all submission
+app.get('/admin',(req,res)=>{
+    res.render('admin', {contacts});
+
 });
 
 app.listen(PORT, () => {
