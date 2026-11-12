@@ -1,17 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/head') %>
     <title>Submission Confirmed</title>
-    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <%- include('partials/nav') %>
+
     <main class="container">
         <section class="contact-section">
             <h2>Thank you, <%= firstName %>!</h2>
             <p style="margin-bottom: 1.5rem; color: #475569;">Your message has been sent successfully. We've recorded your submission.</p>
             
+            <div class="summary-card">
+                <h3>Submission Details</h3>
+                <ul class="summary-list">
+                    <li><strong>Full Name:</strong> <%= contact.firstName %> <%= contact.lastName %></li>
+                    <li><strong>Email Address:</strong> <%= contact.email %></li>
+                    <li><strong>Mailing List:</strong> <%= contact.mailingList %></li>
+                    <li><strong>Preferred Format:</strong> <%= contact.emailFormat %></li>
+                    <li><strong>LinkedIn:</strong> <%= contact.linkedin %></li>
+                    <li><strong>How We Met:</strong> <%= contact.howWeMet %> <%= contact.otherMet !== 'N/A' ? `(${contact.otherMet})` : '' %></li>
+                    <li><strong>Message:</strong> <%= contact.message %></li>
+                    <li><strong>Submitted At:</strong> <%= contact.submittedAt %></li>
+                </ul>
+            </div>
+
+            <br>
             <a href="/" class="btn-submit">Go back home</a>
             <a href="/admin" class="btn-submit btn-secondary">View Admin Data Dump</a>
         </section>

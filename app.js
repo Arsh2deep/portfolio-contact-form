@@ -4,58 +4,61 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3002;
 
-// database array to store contact form submissions
+// In-memory database array to store contact form submissions
 const contacts = [];
 
-//Set EJS as the view engine
+// Set EJS view engine & views directory
 app.set('view engine', 'ejs');
-app.set('views',path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 
 // Middleware for parsing form data
 app.use(express.urlencoded({ extended: true }));
 
-// Serve all static files (HTML, CSS, favicon) from the 'public' folder
+// Serve static assets from 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Root route sends home.html
+// GET / - Home page renders Online Resume
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'home.html'));
+    res.render('index');
 });
 
-// Handles Contact Form submission
-app.post('/contact',(req,res)=>{
-    //Get form fields from client
-    const {firstName,lastName, email,mailingList,emailFormat,linkedin,howWeMet,otherMet,message}=req.body;
+// GET /contact - Contact form page
+app.get('/contact', (req, res) => {
+    res.render('contact');
+});
+
+// POST /contact - Process form submission and store timestamped contact object
+app.post('/contact', (req, res) => {
+    const { firstName, lastName, email, mailingList, emailFormat, linkedin, howWeMet, otherMet, message } = req.body;
     
-    //Structre Submission data Object First
+    // Create new contact submission object with timestamp
     const newContact = {
-        firstName,
-        lastName,
-        email,
-        mailingList: mailingList ? 'Subscribed': 'Not Subscribed',
+        firstName: firstName ? firstName.trim() : '',
+        lastName: lastName ? lastName.trim() : '',
+        email: email ? email.trim() : '',
+        mailingList: mailingList ? 'Subscribed' : 'Not Subscribed',
         emailFormat: mailingList ? emailFormat : 'N/A',
-        linkedin,
-        howWeMet,
-        otherMet: howWeMet === 'other'? otherMet:'N/A',
-        message,
-        submittedAt: new Date().toLocaleString()
+        linkedin: linkedin && linkedin.trim() !== '' ? linkedin.trim() : 'N/A',
+        howWeMet: howWeMet || 'N/A',
+        otherMet: howWeMet === 'other' && otherMet ? otherMet.trim() : 'N/A',
+        message: message && message.trim() !== '' ? message.trim() : 'N/A',
+        submittedAt: new Date().toLocaleString('en-US', {
+            dateStyle: 'medium',
+            timeStyle: 'short'
+        })
     };
 
-    //store in-memory array backend
+    // Push to backend memory array
     contacts.push(newContact);
+    console.log('New Contact Stored:', newContact);
 
-    //log the submission to terminal for testing
-    console.log('Contact form submission received: ', newContact);
-
-    //render Confirmation template
-    res.render('confirmation', { firstName });
-
+    // Render confirmation template passing the submitted contact object
+    res.render('confirmation', { contact: newContact });
 });
 
-//Admin Route to display data dump of all submission
-app.get('/admin',(req,res)=>{
-    res.render('admin', {contacts});
-
+// GET /admin - Display all contact form submissions
+app.get('/admin', (req, res) => {
+    res.render('admin', { contacts });
 });
 
 app.listen(PORT, () => {

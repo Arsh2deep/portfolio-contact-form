@@ -1,48 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/head') %>
     <title>Portfolio Contact Form</title>
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/images/Favicon.png">
-    <!-- External Stylesheet -->
-    <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
+    <!--Navigation Bar Partial-->
+    <%- include('partials/nav') %>
 
     <main class="container">
         <section class="contact-section">
             <h2>Get in Touch</h2>
-            <!--novalidate disables default HTML validation-->
             <form action="/contact" method="POST" class="contact-form" id="contactForm" novalidate>
                 
-                <!--First Name-->
                 <div class="form-group" id="firstNameGroup">
                     <label for="firstName">First Name</label>
                     <input type="text" id="firstName" name="firstName" placeholder="Jane">
                     <span class="error-msg">First name is required.</span>
                 </div>
 
-                <!--Last Name-->
-                <div class="form-group" id="lastNAmeGroup">
+                <div class="form-group" id="lastNameGroup">
                     <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" placeholder= "Doe">
+                    <input type="text" id="lastName" name="lastName" placeholder="Doe">
                     <span class="error-msg">Last name is required.</span>
                 </div>
-                <!--Email-->
+
                 <div class="form-group">
                     <label for="email">Email Address</label>
                     <input type="email" id="email" name="email" placeholder="jane@example.com">
-                    <span class = "error-msg">Please enter a valid email address (must include '@' and '.').</span>
-                </div>
-                <!--Mailing List-->
-                <div class ="form-group full-width checkbox-group">
-                    <input type="checkbox" id="mailingList" name="mailingList">
-                    <label for = "mailingList">Subscribe to mailing list</label>
+                    <span class="error-msg">Please enter a valid email address.</span>
                 </div>
 
-                <!--Conditional email format-->
+                <div class="form-group full-width checkbox-group">
+                    <input type="checkbox" id="mailingList" name="mailingList">
+                    <label for="mailingList">Subscribe to mailing list</label>
+                </div>
+
                 <div class="form-group full-width conditional-section" id="emailFormatSection">
                     <label>Preferred Email Format</label>
                     <div class="radio-options">
@@ -50,14 +43,13 @@
                         <label><input type="radio" name="emailFormat" value="text"> Text</label>
                     </div>
                 </div>
-                <!--LinkedIN Profile-->
+
                 <div class="form-group full-width" id="linkedinGroup">
-                    <label for="linkedin">https://www.linkedin.com/in/arshdeep-singh-24810b186/<span class="optional-tag">(Optional)</span></label>
+                    <label for="linkedin">LinkedIn Profile <span class="optional-tag">(Optional)</span></label>
                     <input type="text" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/username">
                     <span class="error-msg">LinkedIn URL must start with "https://linkedin.com/in/"</span>
                 </div>
 
-                <!-- How We Met Dropdown -->
                 <div class="form-group full-width" id="howWeMetGroup">
                     <label for="howWeMet">How did we meet?</label>
                     <select id="howWeMet" name="howWeMet">
@@ -68,23 +60,20 @@
                         <option value="school">School / University</option>
                         <option value="other">Other</option>
                     </select>
-                    <span class="error-msg">Please select how did we meet?.</span>
+                    <span class="error-msg">Please select how did we meet.</span>
                 </div>
 
-                <!--Condtional Other specification-->
                 <div class="form-group full-width conditional-section" id="otherMetGroup">
                     <label for="otherMet">Please specify:</label>
                     <input type="text" id="otherMet" name="otherMet">
                     <span class="error-msg">Please specify how we met.</span>
                 </div>
 
-                <!--Message-->
                 <div class="form-group full-width">
                     <label for="message">Message <span class="optional-tag">(Optional)</span></label>
                     <textarea id="message" name="message" rows="5" placeholder="Write your message here..."></textarea>
                 </div>
 
-                <!--Submit Button-->
                 <div class="form-group full-width">
                     <button type="submit" class="btn-submit">Send Message</button>
                 </div>
@@ -92,6 +81,6 @@
             </form>
         </section>
     </main>
-        <script src="/public/scripts/script.js"></script>
+    <script src="/scripts/script.js"></script>
 </body>
 </html>
